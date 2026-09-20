@@ -197,6 +197,7 @@ class AnthropicClaudeCliProvider(BaseLLMProvider):
             common_paths = [
                 '/usr/local/bin/claude',
                 '/opt/homebrew/bin/claude',  # Apple Silicon Homebrew
+                os.path.expanduser('~/.local/bin/claude'),
                 os.path.expanduser('~/.npm-global/bin/claude'),
                 os.path.expanduser('~/Library/npm/bin/claude'),
             ]
