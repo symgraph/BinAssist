@@ -9,6 +9,8 @@ The Settings tab is where you configure LLM providers, MCP servers, and other pl
 
 This section manages the LLM providers that power BinAssist's analysis capabilities.
 
+See the [recommended model families](../index.md#recommended-models) for open-weight and hosted options. Use the exact model ID from your provider's catalog or the installed tag from `ollama list`; family names such as Qwen, Sonnet, and GPT are not necessarily valid API identifiers.
+
 ### Provider Table
 
 The table displays all configured providers with the following columns:
@@ -16,7 +18,7 @@ The table displays all configured providers with the following columns:
 | Column | Description |
 |--------|-------------|
 | **Name** | Display name for the provider |
-| **Model** | Model identifier (e.g., `gpt-4o`, `claude-sonnet-4-20250514`) |
+| **Model** | Exact model ID or installed tag exposed by the selected endpoint |
 | **Type** | Provider type (see Provider Types below) |
 | **URL** | API endpoint URL (may be empty for default endpoints) |
 | **Max Tokens** | Maximum tokens per request |
@@ -47,10 +49,13 @@ The **Reasoning Effort** dropdown controls the depth of reasoning for models tha
 
 Higher reasoning effort increases response quality for complex analysis but also increases latency and cost (for paid providers).
 
-**Supported models**:
-- Anthropic: Claude Sonnet 4+, Claude Opus
-- OpenAI: o1, o3, gpt-5 models
-- Ollama: gpt-oss and compatible models
+**Model and provider support**:
+
+- Anthropic: Opus and Sonnet models that support extended thinking
+- OpenAI: GPT models that support reasoning effort
+- Local or self-hosted: Open-weight reasoning models supported by the selected backend and plugin provider
+
+Reasoning ability alone does not guarantee compatibility with this control. Leave **Reasoning Effort** at **None** when unsupported.
 
 ### Provider Types
 
@@ -78,7 +83,7 @@ When adding or editing a provider, the dialog shows different fields based on th
 **Common fields**:
 - **Name**: A descriptive name for this provider
 - **Type**: The provider type (see table above)
-- **Model**: The model identifier to use
+- **Model**: Exact model ID, installed tag, or configured proxy alias
 - **Max Tokens**: Maximum tokens per request (default: 4096)
 
 **Type-specific fields**:

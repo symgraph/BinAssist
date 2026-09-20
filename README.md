@@ -10,8 +10,12 @@ BinAssist is an advanced LLM plugin designed to enhance binary analysis and reve
 The plugin supports any OpenAI v1-compatible or Anthropic API, making it compatible with popular LLM providers including Ollama, LM Studio, Open-WebUI, OpenAI, Anthropic, AWS Bedrock (via LiteLLM), and others.
 
 **Recommended models:**
-- **With Reasoning Support**: Claude Sonnet 4+, OpenAI GPT-5+, GPT-OSS (supports extended thinking for complex analysis)
-- **General Purpose**: DeepSeek, LLaMA-based coder models, Claude Sonnet 3.5, GPT-4
+
+- **Open-weight models**: GLM, Qwen, DeepSeek, Nemotron, Gemma, and Muse are recommended families for local or self-hosted analysis. Choose an instruction-tuned, coding, or reasoning model supported by your runtime.
+- **Hosted frontier models**: Opus, Sonnet, and GPT are recommended for code analysis and complex investigations.
+- **Agentic mode and Actions**: Choose a model and serving backend with reliable native tool calling and multi-step reasoning. Extended thinking controls depend on the selected model and provider.
+
+These are family names, not literal API identifiers. In Settings, enter the exact model ID or installed tag provided by your endpoint. See the [model guidance](docs/index.md#recommended-models) for selection criteria and official model resources.
 
 ## Core Features
 
@@ -30,7 +34,7 @@ The plugin supports any OpenAI v1-compatible or Anthropic API, making it compati
   - Up to 15 iterations with intelligent termination
 - **Extended Thinking**: Support for reasoning effort control on compatible models
   - Configurable thinking depth (None, Low, Medium, High)
-  - Compatible with Claude Sonnet 4+, OpenAI o1/o3/gpt-5, and gpt-oss
+  - Available for Opus, Sonnet, GPT, and compatible open-weight reasoning models, depending on the model and provider
   - Increases analysis quality for complex reverse engineering tasks
 - **Binary Context**: Automatically includes relevant binary information in queries
 - **Flexible Prompting**: Support for custom queries and analysis requests
@@ -71,7 +75,7 @@ The plugin supports any OpenAI v1-compatible or Anthropic API, making it compati
 - **ReAct Autonomous Agent**: Full implementation of the ReAct framework for multi-step analysis
 - **Extended Thinking/Reasoning Effort**: Provider-agnostic reasoning control for deeper analysis
   - Anthropic: Extended thinking with configurable token budgets (2K-25K tokens)
-  - OpenAI: Reasoning effort levels for o1/o3/gpt-5 models
+  - OpenAI: Reasoning effort levels for supported GPT models
   - Ollama: Native thinking parameter support for compatible models (gpt-oss)
 - **Function Calling**: LLM can directly interact with Binary Ninja API to navigate and modify analysis
 - **MCP Integration**: Model Context Protocol support for extensible tool integration
@@ -119,7 +123,7 @@ pip install -r requirements.txt
 2. Configure your LLM provider:
    - **API Host**: Point to your preferred API endpoint (e.g., `http://localhost:11434` for Ollama)
    - **API Key**: Set authentication key if required
-   - **Model**: Choose your preferred model (e.g., `gpt-oss:20b`, `claude-sonnet-4-5`, `gpt-5.2-codex`)
+   - **Model**: Enter the exact model ID or installed tag from your provider for your chosen family (such as Qwen, Sonnet, or GPT)
 3. Set database paths for RLHF and RAG features
 4. Adjust token limits based on your needs
 5. Configure **Reasoning Effort** in the Settings tab for models that support extended thinking
@@ -241,15 +245,18 @@ https://symgraph.ai
 ### LLM Provider Setup
 
 **Local LLMs (Recommended):**
+
+Choose a supported model from GLM, Qwen, DeepSeek, Nemotron, Gemma, or Muse in the [Ollama library](https://ollama.com/library). Replace `MODEL_TAG` below with its exact tag, choosing a model that fits your available memory and context needs.
+
 ```bash
 # Ollama setup
 curl -fsSL https://ollama.ai/install.sh | sh
 
-# Pull a general-purpose model
-ollama pull llama3.1:8b
+# Pull your chosen model (replace MODEL_TAG first)
+ollama pull MODEL_TAG
 
-# Or pull a reasoning model (recommended for complex analysis)
-ollama pull gpt-oss:20b
+# Copy the installed tag into BinAssist's Model field
+ollama list
 
 ollama serve  # Runs on http://localhost:11434
 ```

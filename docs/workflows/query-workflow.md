@@ -182,11 +182,13 @@ In [Settings](../tabs/settings-tab.md), set the **Reasoning Effort**:
 
 Higher levels increase latency and cost but improve quality for complex questions.
 
-### Supported Models
+### Model and Provider Support
 
-- Anthropic: Claude Sonnet 4+, Claude Opus
-- OpenAI: o1, o3, gpt-5 models
-- Ollama: gpt-oss and compatible models
+- Anthropic: Opus and Sonnet models that support extended thinking
+- OpenAI: GPT models that support reasoning effort
+- Local or self-hosted: Open-weight reasoning models supported by the selected backend and plugin provider
+
+Reasoning ability alone does not guarantee compatibility with the **Reasoning Effort** control. Leave it at **None** when unsupported. See the [model guidance](../index.md#recommended-models) for current family recommendations and tool-calling requirements.
 
 ## Combining Approaches
 

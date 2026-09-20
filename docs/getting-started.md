@@ -77,6 +77,8 @@ After installation, you need to configure at least one LLM provider.
 
 BinAssist supports multiple LLM providers. Choose the one that best fits your needs:
 
+Recommended open-weight families are **GLM, Qwen, DeepSeek, Nemotron, Gemma, and Muse**; hosted frontier options include **Opus, Sonnet, and GPT**. See the [model guidance](index.md#recommended-models) for selection criteria. Family names are recommendations: the **Model** field requires the exact ID or tag from your provider.
+
 ### Option 1: Ollama (Local, Free, Private)
 
 Ollama runs models locally on your machine, ensuring privacy and avoiding API costs.
@@ -92,12 +94,14 @@ curl -fsSL https://ollama.ai/install.sh | sh
 
 **Step 2: Pull a Model**
 
-```bash
-# General purpose model
-ollama pull llama3.1:8b
+Choose a model supported by your runtime from the [Ollama library](https://ollama.com/library), with memory and context requirements that fit your machine. Replace `MODEL_TAG` below with its exact tag.
 
-# Or a reasoning model (recommended for complex analysis)
-ollama pull gpt-oss:20b
+```bash
+# Download the selected model
+ollama pull MODEL_TAG
+
+# Find the installed tag to use in Settings
+ollama list
 
 # Start the server
 ollama serve
@@ -109,7 +113,7 @@ ollama serve
 2. Fill in the fields:
    - **Name**: `Ollama Local`
    - **Type**: Select `Ollama`
-   - **Model**: `llama3.1:8b` (or your chosen model)
+   - **Model**: The exact installed tag shown by `ollama list`
    - **URL**: `http://localhost:11434`
    - **API Key**: Leave empty
    - **Max Tokens**: `8192`
@@ -134,7 +138,7 @@ Use OpenAI's models with a paid API key.
 2. Fill in the fields:
    - **Name**: `OpenAI`
    - **Type**: Select `OpenAI Platform API`
-   - **Model**: `gpt-5.2-codex`
+   - **Model**: The exact GPT model ID available from your provider's model catalog
    - **URL**: Leave empty (uses default)
    - **API Key**: Paste your API key
    - **Max Tokens**: `20000`
@@ -159,7 +163,7 @@ Use Anthropic's Claude models with a paid API key.
 2. Fill in the fields:
    - **Name**: `Anthropic Claude`
    - **Type**: Select `Anthropic Platform API`
-   - **Model**: `claude-sonnet-4-5` (or `claude-opus-4-5`)
+   - **Model**: The exact Sonnet or Opus model ID available from your provider's model catalog
    - **URL**: Leave empty (uses default)
    - **API Key**: Paste your API key
    - **Max Tokens**: `20000`
@@ -174,7 +178,7 @@ If you have a Claude Pro/Max or ChatGPT Pro/Plus subscription, you can use OAuth
 
 1. Click **Add** in the LLM Providers section
 2. Select **Type**: `Anthropic OAuth`
-3. Fill in a **Name** and **Model** (e.g., `claude-sonnet-4-5`)
+3. Fill in a **Name** and the exact **Model** ID for Sonnet or Opus supported by this provider
 4. Click **Authenticate**
 5. A browser window will open for you to sign in to your Anthropic account
 6. After authorization, the credentials will be saved automatically
@@ -184,7 +188,7 @@ If you have a Claude Pro/Max or ChatGPT Pro/Plus subscription, you can use OAuth
 
 1. Click **Add** in the LLM Providers section
 2. Select **Type**: `OpenAI OAuth`
-3. Fill in a **Name** and **Model** (e.g., `gpt-5.2-codex`)
+3. Fill in a **Name** and the exact **Model** ID for GPT supported by this provider
 4. Click **Authenticate**
 5. A browser window will open for you to sign in to your OpenAI account
 6. After authorization, the credentials will be saved automatically
@@ -266,7 +270,7 @@ Now that you have BinAssist working, explore these features:
 ### Slow responses
 
 - Local models: Consider using a smaller model or getting a better GPU
-- Cloud providers: This is normal for reasoning models (o1, Claude with extended thinking)
+- Cloud providers: Reasoning-enabled GPT, Opus, or Sonnet models may take longer when extended thinking is active
 - Large functions: Try analyzing smaller functions first
 
 For additional help, check the [GitHub Issues](https://github.com/jtang613/BinAssist/issues) page.
